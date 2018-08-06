@@ -100,5 +100,7 @@ Auto-generate boilerplate code of interpreter pattern.
     }
     ```
 
+For a full example check out https://github.com/johannesegger/dependency-injection-revisited/tree/master/CSharp.
+
 ## Acknowledgments
 There is no way I could have created this library if there wasn't [Mark Seemann](https://twitter.com/ploeh) with his [great article about an alternative for dependency injection](http://blog.ploeh.dk/2018/07/24/dependency-injection-revisited/) and [Nick Palladinos](https://twitter.com/NickPalladinos) for his great [Effects library for C#](https://github.com/nessos/Eff) and some help on understanding it. The code generation via an MSBuild target is stolen from [protobuf-net](https://github.com/mgravell/protobuf-net), I accidentally saw that on [Twitter](https://twitter.com/marcgravell/status/1025139557619122181).
