@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <InterpreterNetMSBuildAssembly Condition="'$(InterpreterNetMSBuildAssembly)' == ''">$(MSBuildThisFileDirectory)Interpreter.Net.dll</InterpreterNetMSBuildAssembly>
+  </PropertyGroup>
+  
+  <ItemDefinitionGroup>
+    <InterpreterInstruction>
+      <Generator>MSBuild:GenerateInterpreterCode</Generator>
+    </InterpreterInstruction>
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <None Remove="**/*.Interpreter.cs"/>
+    <InterpreterInstruction Include="**/*.Interpreter.cs"/>
+  </ItemGroup>
+  
+</Project>

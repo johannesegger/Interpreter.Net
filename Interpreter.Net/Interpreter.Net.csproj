@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Interpreter.Net</PackageId>
+    <Title>Auto-generate boilerplate code of interpreter pattern</Title>
+    <Authors>JEgger</Authors>
+    <Description>Auto-generate boilerplate code of interpreter pattern</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/johannesegger/Interpreter.Net/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/johannesegger/Interpreter.Net</PackageProjectUrl>
+    <PackageTags>Interpreter;Pattern</PackageTags>
+    <IncludeSymbols>True</IncludeSymbols>
+    <RepositoryUrl>https://github.com/johannesegger/Interpreter.Net</RepositoryUrl>
+    <IncludeBuildOutput>false</IncludeBuildOutput> <!-- Is included manually -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\*" PackagePath="build\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Equals.Fody" Version="1.9.1">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.7.179">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.7.179">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.8.2">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <Target Name="CopyBuildFiles" AfterTargets="CoreBuild" BeforeTargets="_CalculateInputsOutputsForPack">
+    <ItemGroup>
+      <Content Include="$(OutDir)\*.dll" PackagePath="build\" />
+    </ItemGroup>
+  </Target>
+
+</Project>

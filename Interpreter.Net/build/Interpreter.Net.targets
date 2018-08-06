@@ -1,0 +1,40 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask
+    Condition="'$(InterpreterNetMSBuildAssembly)' != ''"
+    AssemblyFile="$(InterpreterNetMSBuildAssembly)"
+    TaskName="GenerateInterpreterCode"/>
+
+  <PropertyGroup>
+
+    <CoreCompileDependsOn>
+      GenerateInterpreterCode;
+      $(CoreCompileDependsOn)
+    </CoreCompileDependsOn>
+
+  </PropertyGroup>
+
+  <Target 
+    Name="GenerateInterpreterCode"
+		BeforeTargets="BeforeBuild"
+		Condition="'@(InterpreterInstruction)' != ''"
+  >
+    <PropertyGroup>
+      <InterpreterCodeGenerationRoot>$(IntermediateOutputPath)</InterpreterCodeGenerationRoot>
+    </PropertyGroup>    
+    
+    <GenerateInterpreterCode
+      InterpreterInput="@(InterpreterInstruction)"
+      OutputPath="$(InterpreterCodeGenerationRoot)"
+    >
+      <Output 
+        TaskParameter="InterpreterOutput"
+				ItemName="InterpreterOutput"/>
+    </GenerateInterpreterCode>
+
+    <ItemGroup>
+      <Compile Include="@(InterpreterOutput)"/>
+    </ItemGroup>
+       
+  </Target>
+</Project>
