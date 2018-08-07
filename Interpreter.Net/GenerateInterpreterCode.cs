@@ -95,13 +95,16 @@ namespace Interpreter.Net
 
 {propertyDeclaration}
 
-        public override System.Threading.Tasks.Task Accept(I{info.BaseName}Handler handler) => handler.Handle(this);
+        public override async System.Threading.Tasks.Task Accept(I{info.BaseName}Handler handler)
+        {{
+            SetResult(await handler.Handle(this));
+        }}
     }}";
             }
 
             string GenerateInstructionHandlerMethod(Instruction instruction)
             {
-                return $"        System.Threading.Tasks.Task Handle({instruction.Name} instruction);";
+                return $"        System.Threading.Tasks.Task<{instruction.ReturnType}> Handle({instruction.Name} instruction);";
             }
 
             var code = $@"{info.UsingDirectives.JoinString(Environment.NewLine)}
