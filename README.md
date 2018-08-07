@@ -65,29 +65,25 @@ Auto-generate boilerplate code of interpreter pattern.
                 this.id = id;
             }
 
-            public Task Handle(IsReservationInFuture instruction)
+            public Task<bool> Handle(IsReservationInFuture instruction)
             {
-                instruction.SetResult(isInFuture);
-                return Task.CompletedTask;
+                return Task.FromResult(isInFuture);
             }
 
-            public Task Handle(ReadReservations instruction)
+            public Task<IReadOnlyCollection<Reservation>> Handle(ReadReservations instruction)
             {
-                instruction.SetResult(reservations);
-                return Task.CompletedTask;
+                return Task.FromResult(reservations);
             }
 
-            public Task Handle(CreateReservation instruction)
+            public Task<int> Handle(CreateReservation instruction)
             {
-                instruction.SetResult(id);
-                return Task.CompletedTask;
+                return Task.FromResult(id);
             }
         }
     }
     ```
 
-    Because every method returns a `Task` you can handle an instruction asynchronously.  
-    Note that it might be a bit counter-intuitive that you have to set the result of an instruction handler via `instruction.SetResult(...)`. I'll probably look for more intuitive alternatives in the future, but if you can't wait that long I'm open for pull requests as well.
+    Because every method returns a `Task<T>` you can handle instructions asynchronously.
 
 1. Use your program, e.g.
     ```csharp
